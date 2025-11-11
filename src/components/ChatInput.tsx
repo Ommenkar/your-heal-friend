@@ -34,7 +34,34 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
 
   return (
     <div className="sticky bottom-0 border-t border-border bg-background/80 backdrop-blur-lg">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-4 space-y-3">
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-full text-xs border-border hover:bg-card"
+            onClick={() => onSendMessage("Analyze my symptoms")}
+          >
+            🔍 Analyze Symptoms
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-full text-xs border-border hover:bg-card"
+            onClick={() => onSendMessage("Give me fitness tips")}
+          >
+            💪 Fitness Tips
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-full text-xs border-border hover:bg-card"
+            onClick={() => onSendMessage("Check my health progress")}
+          >
+            📈 Health Progress
+          </Button>
+        </div>
+
         <div className="flex items-end gap-2">
           <Button
             variant="ghost"
@@ -79,32 +106,9 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
           </Button>
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Analyze my symptoms")}
-          >
-            🔍 Analyze Symptoms
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Give me fitness tips")}
-          >
-            💪 Fitness Tips
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Check my health progress")}
-          >
-            📈 Health Progress
-          </Button>
-        </div>
+        <p className="text-xs text-center text-muted-foreground">
+          AI SmartHeal can make mistakes. Please verify important information.
+        </p>
       </div>
     </div>
   );

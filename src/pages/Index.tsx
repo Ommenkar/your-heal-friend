@@ -4,6 +4,8 @@ import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import FloatingCrosses from "@/components/FloatingCrosses";
 import WelcomeScreen from "@/components/WelcomeScreen";
+import LoginPage from "@/components/LoginPage";
+import AppSidebar from "@/components/AppSidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Message {
@@ -11,15 +13,14 @@ interface Message {
   content: string;
 }
 
+type PageState = "welcome" | "login" | "chat";
+
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [pageState, setPageState] = useState<PageState>("welcome");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSendMessage = (content: string) => {
-    if (showWelcome) {
-      setShowWelcome(false);
-    }
-
     const userMessage: Message = { role: "user", content };
     setMessages((prev) => [...prev, userMessage]);
 
@@ -33,16 +34,34 @@ const Index = () => {
     }, 1000);
   };
 
+  if (pageState === "welcome") {
+    return (
+      <div className="flex flex-col h-screen bg-background text-foreground relative overflow-hidden">
+        <FloatingCrosses />
+        <WelcomeScreen onLogin={() => setPageState("login")} />
+      </div>
+    );
+  }
+
+  if (pageState === "login") {
+    return (
+      <div className="flex flex-col h-screen bg-background text-foreground relative overflow-hidden">
+        <FloatingCrosses />
+        <LoginPage onLogin={() => setPageState("chat")} />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
       <FloatingCrosses />
       
-      <ChatHeader />
+      <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 relative">
-        {showWelcome ? (
-          <WelcomeScreen onStart={() => setShowWelcome(false)} />
-        ) : (
+      <div className="flex flex-col flex-1 min-w-0">
+        <ChatHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+
+        <div className="flex-1 relative overflow-hidden">
           <ScrollArea className="h-full">
             <div className="container mx-auto px-4 py-6 space-y-6 max-w-4xl">
               {messages.map((message, index) => (
@@ -50,10 +69,10 @@ const Index = () => {
               ))}
             </div>
           </ScrollArea>
-        )}
-      </div>
+        </div>
 
-      <ChatInput onSendMessage={handleSendMessage} />
+        <ChatInput onSendMessage={handleSendMessage} />
+      </div>
     </div>
   );
 };

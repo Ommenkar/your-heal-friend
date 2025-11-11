@@ -33,26 +33,8 @@ const FloatingCrosses = () => {
           >
             <path
               d="M9 2H15V9H22V15H15V22H9V15H2V9H9V2Z"
-              fill="url(#gradient)"
+              fill="hsl(140, 70%, 55%)"
             />
-            <defs>
-              <linearGradient
-                id="gradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
-                <stop
-                  offset="0%"
-                  style={{ stopColor: "hsl(45, 100%, 60%)", stopOpacity: 1 }}
-                />
-                <stop
-                  offset="100%"
-                  style={{ stopColor: "hsl(140, 70%, 55%)", stopOpacity: 1 }}
-                />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
       ))}
