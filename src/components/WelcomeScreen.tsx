@@ -10,18 +10,21 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
     <div className="flex-1 overflow-y-auto px-4 py-12 animate-fade-in">
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h1 className="text-4xl sm:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            SmartHeal
+          <h1 className="text-5xl sm:text-7xl font-bold">
+            <span className="text-[#FFD700]">Smart</span>
+            <span className="text-health-green">Heal</span>
           </h1>
           <p className="text-xl sm:text-2xl text-muted-foreground">
             A Smart Way to Care for Your Health
           </p>
         </div>
 
-        <div className="space-y-8 text-left">
+        <div className="space-y-10 text-left">
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          
           <section className="space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-2">
-              <Heart className="h-7 w-7 text-health-green" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-3">
+              <Heart className="h-8 w-8 text-health-green" />
               What Is SmartHeal?
             </h2>
             <div className="space-y-3 text-muted-foreground leading-relaxed">
@@ -36,6 +39,8 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
               </p>
             </div>
           </section>
+
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <section className="space-y-4">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
@@ -64,6 +69,8 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
               SmartHeal was created to solve all these problems and make health help easy, quick, and available for everyone.
             </p>
           </section>
+
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <section className="space-y-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
@@ -109,13 +116,13 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
           </section>
         </div>
 
-        <div className="flex justify-center pt-8">
+        <div className="flex justify-center pt-12">
           <Button
             size="lg"
             onClick={onLogin}
-            className="rounded-full bg-gradient-primary hover:shadow-glow transition-all text-lg px-12 py-6 h-auto"
+            className="rounded-full bg-gradient-primary hover:shadow-glow transition-all text-lg px-16 py-7 h-auto font-semibold"
           >
-            Get Started - Login
+            Get Started
           </Button>
         </div>
       </div>

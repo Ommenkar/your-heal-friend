@@ -1,4 +1,4 @@
-import { History, User, Plus, MessageSquare } from "lucide-react";
+import { User, Plus, MessageSquare, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -31,10 +31,14 @@ const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
         `}
       >
         <div className="flex flex-col h-full">
-          <div className="p-4 border-b border-border">
+          <div className="p-4 space-y-3 border-b border-border">
             <Button className="w-full justify-start gap-2 bg-gradient-primary hover:shadow-glow">
               <Plus className="h-4 w-4" />
               New Chat
+            </Button>
+            <Button variant="ghost" className="w-full justify-start gap-2">
+              <Search className="h-4 w-4" />
+              Search Chat
             </Button>
           </div>
 
@@ -60,14 +64,7 @@ const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
             </div>
           </ScrollArea>
 
-          <div className="p-3 border-t border-border space-y-2">
-            <Button
-              variant="ghost"
-              className="w-full justify-start gap-2"
-            >
-              <History className="h-4 w-4" />
-              History
-            </Button>
+          <div className="p-3 border-t border-border">
             <Button
               variant="ghost"
               className="w-full justify-start gap-2"

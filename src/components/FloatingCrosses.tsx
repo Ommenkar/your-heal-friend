@@ -11,7 +11,7 @@ const FloatingCrosses = () => {
   ];
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {crosses.map((cross, index) => (
         <div
           key={index}

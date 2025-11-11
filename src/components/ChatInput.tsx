@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, Send, Image as ImageIcon } from "lucide-react";
+import { Mic, Send, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ChatInputProps {
@@ -42,7 +42,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             className="rounded-full text-xs border-border hover:bg-card"
             onClick={() => onSendMessage("Analyze my symptoms")}
           >
-            🔍 Analyze Symptoms
+            Analyze Symptoms
           </Button>
           <Button
             variant="outline"
@@ -50,7 +50,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             className="rounded-full text-xs border-border hover:bg-card"
             onClick={() => onSendMessage("Give me fitness tips")}
           >
-            💪 Fitness Tips
+            Fitness Tips
           </Button>
           <Button
             variant="outline"
@@ -58,18 +58,34 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             className="rounded-full text-xs border-border hover:bg-card"
             onClick={() => onSendMessage("Check my health progress")}
           >
-            📈 Health Progress
+            Health Progress
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-full text-xs border-border hover:bg-card"
+            onClick={() => onSendMessage("Tell me about this medicine")}
+          >
+            Medicine Info
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-full text-xs border-border hover:bg-card"
+            onClick={() => onSendMessage("Give me diet advice")}
+          >
+            Diet Advice
           </Button>
         </div>
 
-        <div className="flex items-end gap-2">
+        <div className="flex items-end gap-3">
           <Button
             variant="ghost"
             size="icon"
-            className="shrink-0 h-10 w-10 rounded-xl hover:bg-card"
+            className="shrink-0 h-10 w-10 hover:text-health-green hover:shadow-[0_0_20px_rgba(253,224,71,0.5)] transition-all"
             onClick={() => {}}
           >
-            <ImageIcon className="h-5 w-5" />
+            <Camera className="h-5 w-5" />
           </Button>
 
           <div className="flex-1 relative">
@@ -79,7 +95,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
               onKeyDown={handleKeyDown}
               placeholder="Ask me anything about your health..."
               disabled={disabled}
-              className="min-h-[48px] max-h-[120px] resize-none rounded-xl bg-card border-border pr-12 focus-visible:ring-primary"
+              className="min-h-[48px] max-h-[120px] resize-none rounded-xl bg-card border-border focus-visible:ring-primary"
               rows={1}
             />
           </div>
@@ -88,8 +104,10 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             variant="ghost"
             size="icon"
             className={cn(
-              "shrink-0 h-10 w-10 rounded-xl transition-all",
-              isRecording && "bg-destructive text-destructive-foreground animate-pulse-glow"
+              "shrink-0 h-10 w-10 transition-all",
+              isRecording 
+                ? "text-red-500 animate-pulse" 
+                : "hover:text-health-green hover:shadow-[0_0_20px_rgba(253,224,71,0.5)]"
             )}
             onClick={toggleRecording}
           >
@@ -100,7 +118,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             size="icon"
             disabled={!message.trim() || disabled}
             onClick={handleSend}
-            className="shrink-0 h-10 w-10 rounded-xl bg-gradient-primary hover:shadow-glow transition-all disabled:opacity-50"
+            className="shrink-0 h-10 w-10 bg-health-green hover:bg-health-green-dark hover:shadow-[0_0_20px_rgba(253,224,71,0.5)] transition-all disabled:opacity-50"
           >
             <Send className="h-5 w-5" />
           </Button>
