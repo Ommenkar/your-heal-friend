@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Bot, User } from "lucide-react";
+import { Stethoscope, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ChatMessageProps {
@@ -18,9 +18,9 @@ const ChatMessage = ({ role, content }: ChatMessageProps) => {
       )}
     >
       {!isUser && (
-        <Avatar className="h-8 w-8 border-2 border-primary/20 bg-gradient-primary">
+        <Avatar className="h-8 w-8 border-2 border-health-green/20 bg-health-green">
           <AvatarFallback className="bg-transparent">
-            <Bot className="h-5 w-5 text-primary-foreground" />
+            <Stethoscope className="h-5 w-5 text-white" />
           </AvatarFallback>
         </Avatar>
       )}

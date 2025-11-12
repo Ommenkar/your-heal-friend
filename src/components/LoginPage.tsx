@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone } from "lucide-react";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -25,7 +26,10 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-12 animate-fade-in">
+    <div className="flex-1 flex items-center justify-center px-4 py-12 animate-fade-in relative">
+      <div className="absolute top-4 right-4 z-10">
+        <LanguageSelector />
+      </div>
       <Card className="w-full max-w-md p-8 space-y-6 bg-card border-border shadow-glow">
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold">

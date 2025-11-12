@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Camera, Mic, MessageSquare, Heart, TrendingUp } from "lucide-react";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface WelcomeScreenProps {
   onLogin: () => void;
@@ -7,7 +8,10 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
   return (
-    <div className="flex-1 overflow-y-auto px-4 py-12 animate-fade-in">
+    <div className="flex-1 overflow-y-auto px-4 py-12 animate-fade-in relative">
+      <div className="absolute top-4 right-4 z-10">
+        <LanguageSelector />
+      </div>
       <div className="max-w-5xl mx-auto space-y-16">
         <div className="text-center space-y-6">
           <h1 className="text-6xl sm:text-8xl font-bold tracking-tight">
@@ -46,21 +50,21 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
               Why We Made It
             </h2>
             <p className="text-muted-foreground text-lg">Many people face problems like:</p>
-            <ul className="space-y-3 text-muted-foreground text-left max-w-xl mx-auto text-lg">
-              <li className="flex items-start gap-3">
-                <span className="text-health-green text-2xl mt-0.5">✓</span>
+            <ul className="space-y-3 text-muted-foreground max-w-xl mx-auto text-lg">
+              <li className="flex items-center justify-center gap-3">
+                <span className="text-health-green text-2xl">✓</span>
                 <span>Not knowing if an illness is serious or not</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-health-green text-2xl mt-0.5">✓</span>
+              <li className="flex items-center justify-center gap-3">
+                <span className="text-health-green text-2xl">✓</span>
                 <span>Not understanding medicine names</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-health-green text-2xl mt-0.5">✓</span>
+              <li className="flex items-center justify-center gap-3">
+                <span className="text-health-green text-2xl">✓</span>
                 <span>Living in areas without doctors nearby</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-health-green text-2xl mt-0.5">✓</span>
+              <li className="flex items-center justify-center gap-3">
+                <span className="text-health-green text-2xl">✓</span>
                 <span>Not being comfortable speaking or typing in English</span>
               </li>
             </ul>
@@ -120,7 +124,7 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
                   Get tips for fitness, skincare, and a healthy lifestyle.
                 </p>
               </div>
-              <div className="p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border-2 border-border hover:border-health-green/50 transition-all hover:shadow-lg hover:scale-105 duration-300 sm:col-span-2 lg:col-span-1">
+              <div className="p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border-2 border-border hover:border-health-green/50 transition-all hover:shadow-lg hover:scale-105 duration-300">
                 <div className="flex justify-center mb-4">
                   <div className="p-3 rounded-full bg-health-green/10">
                     <TrendingUp className="h-10 w-10 text-health-green" />
@@ -129,6 +133,17 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
                 <h3 className="font-bold mb-3 text-foreground text-lg">Track Your Progress</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Keep track of your health routines and habits.
+                </p>
+              </div>
+              <div className="p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border-2 border-border hover:border-health-green/50 transition-all hover:shadow-lg hover:scale-105 duration-300">
+                <div className="flex justify-center mb-4">
+                  <div className="p-3 rounded-full bg-health-green/10">
+                    <MessageSquare className="h-10 w-10 text-health-green" />
+                  </div>
+                </div>
+                <h3 className="font-bold mb-3 text-foreground text-lg">24/7 Support</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Get health guidance anytime, anywhere — day or night.
                 </p>
               </div>
             </div>

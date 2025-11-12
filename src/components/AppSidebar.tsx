@@ -35,12 +35,12 @@ const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
       >
         <div className="flex flex-col h-full">
           <div className="p-4 space-y-3 border-b border-border">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-end mb-2">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="hover:bg-muted"
+                className="hover:bg-muted lg:hidden"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
