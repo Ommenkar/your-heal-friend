@@ -23,8 +23,7 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
           
           <section className="space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-3">
-              <Heart className="h-8 w-8 text-health-green" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center">
               What Is SmartHeal?
             </h2>
             <div className="space-y-3 text-muted-foreground leading-relaxed">
@@ -43,7 +42,7 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <section className="space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center">
               Why We Made It
             </h2>
             <p className="text-muted-foreground">Many people face problems like:</p>
@@ -73,7 +72,7 @@ const WelcomeScreen = ({ onLogin }: WelcomeScreenProps) => {
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <section className="space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center">
               What SmartHeal Can Do
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">

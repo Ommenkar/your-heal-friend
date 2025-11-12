@@ -9,6 +9,14 @@ interface ChatInputProps {
   disabled?: boolean;
 }
 
+const QUICK_PROMPTS = [
+  "Analyze Symptoms",
+  "Fitness Tips",
+  "Health Progress",
+  "Medicine Info",
+  "Diet Advice",
+];
+
 const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
   const [message, setMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
@@ -32,57 +40,32 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
     // Voice recording logic would go here
   };
 
+  const handleQuickPrompt = (prompt: string) => {
+    setMessage(prompt);
+  };
+
   return (
     <div className="sticky bottom-0 border-t border-border bg-background/80 backdrop-blur-lg">
       <div className="container mx-auto px-4 py-4 space-y-3">
         <div className="flex flex-wrap gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Analyze my symptoms")}
-          >
-            Analyze Symptoms
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Give me fitness tips")}
-          >
-            Fitness Tips
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Check my health progress")}
-          >
-            Health Progress
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Tell me about this medicine")}
-          >
-            Medicine Info
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full text-xs border-border hover:bg-card"
-            onClick={() => onSendMessage("Give me diet advice")}
-          >
-            Diet Advice
-          </Button>
+          {QUICK_PROMPTS.map((prompt) => (
+            <Button
+              key={prompt}
+              variant="outline"
+              size="sm"
+              className="rounded-full text-xs border-[#FFD700] hover:border-[#FFD700] hover:bg-transparent"
+              onClick={() => handleQuickPrompt(prompt)}
+            >
+              {prompt}
+            </Button>
+          ))}
         </div>
 
         <div className="flex items-end gap-3">
           <Button
             variant="ghost"
             size="icon"
-            className="shrink-0 h-10 w-10 hover:text-health-green hover:shadow-[0_0_20px_rgba(253,224,71,0.5)] transition-all"
+            className="shrink-0 h-10 w-10 hover:border hover:border-health-green transition-all"
             onClick={() => {}}
           >
             <Camera className="h-5 w-5" />
@@ -106,8 +89,8 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
             className={cn(
               "shrink-0 h-10 w-10 transition-all",
               isRecording 
-                ? "text-red-500 animate-pulse" 
-                : "hover:text-health-green hover:shadow-[0_0_20px_rgba(253,224,71,0.5)]"
+                ? "text-red-500 animate-pulse border border-red-500" 
+                : "hover:border hover:border-health-green"
             )}
             onClick={toggleRecording}
           >
@@ -115,10 +98,11 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
           </Button>
 
           <Button
+            variant="ghost"
             size="icon"
             disabled={!message.trim() || disabled}
             onClick={handleSend}
-            className="shrink-0 h-10 w-10 bg-health-green hover:bg-health-green-dark hover:shadow-[0_0_20px_rgba(253,224,71,0.5)] transition-all disabled:opacity-50"
+            className="shrink-0 h-10 w-10 hover:border hover:border-health-green transition-all disabled:opacity-50"
           >
             <Send className="h-5 w-5" />
           </Button>

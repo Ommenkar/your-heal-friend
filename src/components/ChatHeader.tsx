@@ -1,4 +1,3 @@
-import logo from "@/assets/logo.jpg";
 import { Menu, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
@@ -28,11 +27,10 @@ const ChatHeader = ({ onToggleSidebar }: ChatHeaderProps) => {
           </div>
 
           <div className="absolute left-1/2 -translate-x-1/2">
-            <img 
-              src={logo} 
-              alt="SmartHeal Logo" 
-              className="h-10 w-auto object-contain"
-            />
+            <h1 className="text-2xl font-bold">
+              <span className="text-[#FFD700]">Smart</span>
+              <span className="text-health-green">Heal</span>
+            </h1>
           </div>
 
           <Button
