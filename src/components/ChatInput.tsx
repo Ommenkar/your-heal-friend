@@ -3,23 +3,25 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Mic, Send, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
   disabled?: boolean;
 }
 
-const QUICK_PROMPTS = [
-  "Analyze Symptoms",
-  "Fitness Tips",
-  "Health Progress",
-  "Medicine Info",
-  "Diet Advice",
-];
-
 const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
+  const { t } = useLanguage();
   const [message, setMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
+
+  const QUICK_PROMPTS = [
+    { key: "analyzeSymptoms", label: t("analyzeSymptoms") },
+    { key: "fitnessTips", label: t("fitnessTips") },
+    { key: "healthProgress", label: t("healthProgress") },
+    { key: "medicineInfo", label: t("medicineInfo") },
+    { key: "dietAdvice", label: t("dietAdvice") },
+  ];
 
   const handleSend = () => {
     if (message.trim() && !disabled) {
@@ -40,8 +42,8 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
     // Voice recording logic would go here
   };
 
-  const handleQuickPrompt = (prompt: string) => {
-    setMessage(prompt);
+  const handleQuickPrompt = (label: string) => {
+    setMessage(label);
   };
 
   return (
@@ -50,13 +52,13 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
         <div className="flex flex-wrap gap-2">
           {QUICK_PROMPTS.map((prompt) => (
             <Button
-              key={prompt}
+              key={prompt.key}
               variant="outline"
               size="sm"
-              className="rounded-full text-xs border-[#FFD700] hover:border-[#FFD700] hover:bg-transparent"
-              onClick={() => handleQuickPrompt(prompt)}
+              className="rounded-full text-xs border-[#FFD700] hover:border-health-green transition-colors"
+              onClick={() => handleQuickPrompt(prompt.label)}
             >
-              {prompt}
+              {prompt.label}
             </Button>
           ))}
         </div>
@@ -76,7 +78,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask me anything about your health..."
+              placeholder={t("messagePlaceholder")}
               disabled={disabled}
               className="min-h-[48px] max-h-[120px] resize-none rounded-xl bg-card border-border focus-visible:ring-primary"
               rows={1}
@@ -109,7 +111,7 @@ const ChatInput = ({ onSendMessage, disabled }: ChatInputProps) => {
         </div>
 
         <p className="text-xs text-center text-muted-foreground">
-          AI SmartHeal can make mistakes. Please verify important information.
+          {t("aiDisclaimer")}
         </p>
       </div>
     </div>

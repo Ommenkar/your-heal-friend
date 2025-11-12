@@ -1,6 +1,7 @@
-import { User, Plus, MessageSquare, Search } from "lucide-react";
+import { User, Plus, MessageSquare, Search, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useLanguage } from "@/components/LanguageProvider";
 
 interface AppSidebarProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface AppSidebarProps {
 }
 
 const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
+  const { t } = useLanguage();
+  
   const conversations = [
     { id: 1, title: "Fever and cold symptoms", date: "Today" },
     { id: 2, title: "Healthy diet tips", date: "Yesterday" },
@@ -32,13 +35,23 @@ const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
       >
         <div className="flex flex-col h-full">
           <div className="p-4 space-y-3 border-b border-border">
+            <div className="flex items-center justify-between mb-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="hover:bg-muted"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+            </div>
             <Button className="w-full justify-start gap-2 bg-gradient-primary hover:shadow-glow">
               <Plus className="h-4 w-4" />
-              New Chat
+              {t("newChat")}
             </Button>
             <Button variant="ghost" className="w-full justify-start gap-2">
               <Search className="h-4 w-4" />
-              Search Chat
+              {t("searchChat")}
             </Button>
           </div>
 
@@ -70,7 +83,7 @@ const AppSidebar = ({ isOpen, onClose }: AppSidebarProps) => {
               className="w-full justify-start gap-2"
             >
               <User className="h-4 w-4" />
-              Account
+              {t("account")}
             </Button>
           </div>
         </div>

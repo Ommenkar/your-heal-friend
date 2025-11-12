@@ -1,6 +1,13 @@
-import { Menu, Sun, Moon } from "lucide-react";
+import { Menu, Sun, Moon, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
+import { useLanguage } from "@/components/LanguageProvider";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface ChatHeaderProps {
   onToggleSidebar?: () => void;
@@ -8,6 +15,7 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ onToggleSidebar }: ChatHeaderProps) => {
   const { theme, setTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
@@ -33,17 +41,38 @@ const ChatHeader = ({ onToggleSidebar }: ChatHeaderProps) => {
             </h1>
           </div>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button>
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Languages className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setLanguage("en")}>
+                  English {language === "en" && "✓"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("hi")}>
+                  हिंदी {language === "hi" && "✓"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("mr")}>
+                  मराठी {language === "mr" && "✓"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
         </div>
       </div>
     </header>
