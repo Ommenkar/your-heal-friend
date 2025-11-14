@@ -84,21 +84,13 @@ const HealthAssistant = ({ onDismiss }: HealthAssistantProps) => {
         </div>
 
         <div className="flex-1 max-w-xl space-y-6">
-          {showMessage && (
-            <div className="bg-card border-2 border-health-green/30 rounded-3xl p-8 shadow-glow animate-fade-in relative">
-              <div className="absolute -top-3 -left-3 w-6 h-6 bg-card border-2 border-health-green/30 rotate-45" />
-              <div className="flex items-center gap-3 mb-4">
-                {isSpeaking && (
-                  <div className="flex gap-1">
-                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0s' }} />
-                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.2s' }} />
-                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.4s' }} />
-                  </div>
-                )}
-              </div>
-              <p className="text-lg leading-relaxed text-foreground">
-                {messages[language as keyof typeof messages]}
-              </p>
+          {isSpeaking && (
+            <div className="flex justify-center items-center gap-2 animate-fade-in">
+              <div className="w-3 h-12 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0s' }} />
+              <div className="w-3 h-16 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.15s' }} />
+              <div className="w-3 h-20 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.3s' }} />
+              <div className="w-3 h-16 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.45s' }} />
+              <div className="w-3 h-12 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.6s' }} />
             </div>
           )}
 
