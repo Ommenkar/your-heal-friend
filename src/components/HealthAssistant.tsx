@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
-import healthAssistantImage from "@/assets/health-assistant.png";
+import { supabase } from "@/integrations/supabase/client";
+import healthAssistantImage from "@/assets/health-assistant-full.png";
 
 interface HealthAssistantProps {
   onDismiss: () => void;
@@ -11,6 +12,8 @@ interface HealthAssistantProps {
 const HealthAssistant = ({ onDismiss }: HealthAssistantProps) => {
   const { language } = useLanguage();
   const [showMessage, setShowMessage] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const messages = {
     en: "SmartHeal helps you understand your health quickly. You can talk to it, upload a photo of any infection or medicine, or type your question. Just choose your method, ask your query, and SmartHeal will guide you with instant advice, image analysis, and daily wellness support. Start by selecting voice, image, or text.",
@@ -19,9 +22,46 @@ const HealthAssistant = ({ onDismiss }: HealthAssistantProps) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowMessage(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    const timer = setTimeout(() => {
+      setShowMessage(true);
+      speakMessage();
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, [language]);
+
+  const speakMessage = async () => {
+    const message = messages[language as keyof typeof messages];
+    setIsSpeaking(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('text-to-speech', {
+        body: { text: message, voice: 'nova' }
+      });
+
+      if (error) throw error;
+
+      if (data?.audioContent) {
+        const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`);
+        audioRef.current = audio;
+        
+        audio.onended = () => {
+          setIsSpeaking(false);
+          audioRef.current = null;
+        };
+
+        await audio.play();
+      }
+    } catch (error) {
+      console.error('Error playing speech:', error);
+      setIsSpeaking(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
@@ -47,6 +87,15 @@ const HealthAssistant = ({ onDismiss }: HealthAssistantProps) => {
           {showMessage && (
             <div className="bg-card border-2 border-health-green/30 rounded-3xl p-8 shadow-glow animate-fade-in relative">
               <div className="absolute -top-3 -left-3 w-6 h-6 bg-card border-2 border-health-green/30 rotate-45" />
+              <div className="flex items-center gap-3 mb-4">
+                {isSpeaking && (
+                  <div className="flex gap-1">
+                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0s' }} />
+                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.2s' }} />
+                    <div className="w-2 h-8 bg-health-green animate-pulse rounded-full" style={{ animationDelay: '0.4s' }} />
+                  </div>
+                )}
+              </div>
               <p className="text-lg leading-relaxed text-foreground">
                 {messages[language as keyof typeof messages]}
               </p>
