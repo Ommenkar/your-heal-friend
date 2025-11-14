@@ -1,0 +1,71 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
+import healthAssistantImage from "@/assets/health-assistant.png";
+
+interface HealthAssistantProps {
+  onDismiss: () => void;
+}
+
+const HealthAssistant = ({ onDismiss }: HealthAssistantProps) => {
+  const { language } = useLanguage();
+  const [showMessage, setShowMessage] = useState(false);
+
+  const messages = {
+    en: "SmartHeal helps you understand your health quickly. You can talk to it, upload a photo of any infection or medicine, or type your question. Just choose your method, ask your query, and SmartHeal will guide you with instant advice, image analysis, and daily wellness support. Start by selecting voice, image, or text.",
+    hi: "SmartHeal आपकी सेहत समझने में आपकी मदद करता है। आप इससे बात कर सकते हैं, किसी भी इन्फेक्शन या दवा की फोटो अपलोड कर सकते हैं, या अपना सवाल टाइप कर सकते हैं। बस अपनी पसंद का तरीका चुनें, सवाल पूछें, और SmartHeal तुरंत सलाह, इमेज विश्लेषण और वेलनेस सपोर्ट देता है। शुरू करने के लिए आवाज, फोटो या टेक्स्ट चुनें।",
+    mr: "SmartHeal तुमची तब्येत समजून घेण्यासाठी मदत करते. तुम्ही त्याच्याशी बोलू शकता, कोणत्याही इंफेक्शनचा किंवा औषधाचा फोटो अपलोड करू शकता, किंवा तुमचा प्रश्न टाइप करू शकता. फक्त तुमचं पद्धत निवडा, प्रश्न विचारा, आणि SmartHeal लगेच सल्ला, इमेज विश्लेषण आणि वेलनेस सपोर्ट देते. सुरू करण्यासाठी आवाज, फोटो किंवा टेक्स्ट निवडा."
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowMessage(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={onDismiss}
+        className="absolute top-4 right-4 rounded-full"
+      >
+        <X className="h-5 w-5" />
+      </Button>
+
+      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center gap-8">
+        <div className="relative flex-1 max-w-2xl">
+          <img
+            src={healthAssistantImage}
+            alt="SmartHeal AI Assistant"
+            className="w-full h-auto animate-scale-in"
+          />
+        </div>
+
+        <div className="flex-1 max-w-xl space-y-6">
+          {showMessage && (
+            <div className="bg-card border-2 border-health-green/30 rounded-3xl p-8 shadow-glow animate-fade-in relative">
+              <div className="absolute -top-3 -left-3 w-6 h-6 bg-card border-2 border-health-green/30 rotate-45" />
+              <p className="text-lg leading-relaxed text-foreground">
+                {messages[language as keyof typeof messages]}
+              </p>
+            </div>
+          )}
+
+          <div className="flex justify-center">
+            <Button
+              onClick={onDismiss}
+              size="lg"
+              className="rounded-full bg-gradient-primary hover:shadow-glow transition-all px-12 py-6 h-auto font-bold text-lg hover:scale-105 duration-300"
+            >
+              {language === "hi" ? "शुरू करें" : language === "mr" ? "सुरू करा" : "Get Started"}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HealthAssistant;
