@@ -6,6 +6,7 @@ import FloatingCrosses from "@/components/FloatingCrosses";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import LoginPage from "@/components/LoginPage";
 import AppSidebar from "@/components/AppSidebar";
+import HealthAssistant from "@/components/HealthAssistant";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Message {
@@ -19,6 +20,12 @@ const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [pageState, setPageState] = useState<PageState>("welcome");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showAssistant, setShowAssistant] = useState(false);
+
+  const handleLogin = () => {
+    setPageState("chat");
+    setShowAssistant(true);
+  };
 
   const handleSendMessage = (content: string) => {
     const userMessage: Message = { role: "user", content };
@@ -47,7 +54,7 @@ const Index = () => {
     return (
       <div className="flex flex-col h-screen bg-background text-foreground relative overflow-hidden">
         <FloatingCrosses />
-        <LoginPage onLogin={() => setPageState("chat")} />
+        <LoginPage onLogin={handleLogin} />
       </div>
     );
   }
@@ -55,6 +62,8 @@ const Index = () => {
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
       <FloatingCrosses />
+      
+      {showAssistant && <HealthAssistant onDismiss={() => setShowAssistant(false)} />}
       
       <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
